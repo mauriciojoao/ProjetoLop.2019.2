@@ -1,0 +1,71 @@
+var x = 200;
+var y = 330; 
+var xe = 50;
+var ye = 50;
+var xdispJogador;
+var ydispJogador;
+var xdispInimigo;
+var ydispInimigo;
+var disparo = false;
+var life = 3;
+var score = 0;
+var level = 1;
+var raioJogador = 25;
+var raioInimigo = 25;
+
+  function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(0);
+  
+  fill(0, 200, 200);    //102, 153 
+  textSize(20);
+  text("LIFE: "+life, 10, 30);
+  text("SCORE: "+score, 150, 30);
+  text("LEVEL: "+level, 300, 30);
+ 
+  ellipse( x, y, 2*raioJogador, 2*raioJogador)
+
+  if (keyIsDown(RIGHT_ARROW)){
+    x = x + 2;
+  
+  }
+  if (keyIsDown(LEFT_ARROW)){  
+    x = x - 2;
+   
+  }
+  if (keyIsDown(UP_ARROW)){
+    y = y - 2;
+    
+  }  
+  if (keyIsDown(DOWN_ARROW)){
+    y = y + 2;
+    
+  }
+  if (keyIsDown(CONTROL) && !disparo){
+    xdispJogador = x; 
+    ydispJogador = y;
+    disparo = true
+  }
+  if (disparo == true){
+  ellipse(xdispJogador, ydispJogador, 5, 5);//disparo do jogador
+  ydispJogador = ydispJogador - 2;
+  if(ydispJogador < 0){ //Futuramente será quando atingir um inimigo
+    disparo = false
+  }
+  } 
+  
+  ellipse( xe, ye, 2*raioInimigo, 2*raioInimigo)//Inimigo
+  ye = ye + 0.25;
+  if ( ye > 400){
+    ye = 0;
+  }
+  if(dist(x, y, xe, ye) < raioJogador + raioInimigo){
+  x = 200;
+  y = 330;
+  life = life - 1;
+  }
+}
+ 
